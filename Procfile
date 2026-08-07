@@ -1,1 +1,1 @@
-web: python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn parking_App.wsgi --bind 0.0.0.0:$PORT
+web: python manage.py migrate contenttypes --fake --noinput && python manage.py migrate auth --fake --noinput && python manage.py migrate admin --fake --noinput && python manage.py migrate sessions --fake --noinput && python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn parking_App.wsgi --bind 0.0.0.0:$PORT
