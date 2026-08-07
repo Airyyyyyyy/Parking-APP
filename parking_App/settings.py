@@ -26,7 +26,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = 'django-insecure-hr$_c@yx_%ehu*cn#h@%5fjm05)er*rzhea)3vy#-c-(t(yc!f'
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', os.getenv('RENDER_EXTERNAL_HOSTNAME', '')]
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+# Railway provides the public domain in this env var at runtime.
+RAILWAY_HOST = os.getenv('RAILWAY_PUBLIC_DOMAIN', '')
+if RAILWAY_HOST:
+    ALLOWED_HOSTS.append(RAILWAY_HOST)
+
+# Keep Render support too, if ever used.
+RENDER_HOST = os.getenv('RENDER_EXTERNAL_HOSTNAME', '')
+if RENDER_HOST:
+    ALLOWED_HOSTS.append(RENDER_HOST)
+
+# Django 4+ requires trusted origins (scheme included) for CSRF on HTTPS forms/admin.
+CSRF_TRUSTED_ORIGINS = [
+    f'https://{host}' for host in (RAILWAY_HOST, RENDER_HOST) if host
+]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
