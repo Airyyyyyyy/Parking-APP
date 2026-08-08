@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.up.railway.app']
 
 # Railway provides the public domain in this env var at runtime.
 RAILWAY_HOST = os.getenv('RAILWAY_PUBLIC_DOMAIN', '')
@@ -40,7 +40,9 @@ if RENDER_HOST:
     ALLOWED_HOSTS.append(RENDER_HOST)
 
 # Django 4+ requires trusted origins (scheme included) for CSRF on HTTPS forms/admin.
-CSRF_TRUSTED_ORIGINS = [
+# Wildcard covers Railway's *.up.railway.app in case the assigned subdomain changes
+# without RAILWAY_PUBLIC_DOMAIN being redeployed with it.
+CSRF_TRUSTED_ORIGINS = ['https://*.up.railway.app'] + [
     f'https://{host}' for host in (RAILWAY_HOST, RENDER_HOST) if host
 ]
 
