@@ -532,15 +532,38 @@
             }
         }
 
+        @media (max-width: 900px) {
+            .navbar .container {
+                padding: 0 1.2rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-link span,
+            .nav-btn span {
+                display: none;
+            }
+
+            .nav-link,
+            .nav-btn {
+                padding: 0.55rem 0.8rem;
+            }
+
+            .nav-links {
+                gap: 0.3rem;
+            }
+        }
+
         @media (max-width: 600px) {
             .app-wrapper {
                 padding: 0 1rem 2rem 1rem;
             }
 
             .navbar .container {
-                flex-wrap: wrap;
                 height: auto;
-                padding: 0.8rem 0;
+                padding: 0.8rem 0.8rem;
                 gap: 0.6rem;
             }
 
@@ -581,13 +604,13 @@
             <i class="fas fa-square-parking"></i> ParkFinder NG
         </div>
         <div class="nav-links">
-            <a href="/parking/search/" class="nav-link"><i class="fas fa-magnifying-glass"></i> Find Parking</a>
-            <a href="/parking/bookings/" class="nav-link"><i class="fas fa-calendar-check"></i> My Bookings</a>
-            <a href="/analytics/trends/" class="nav-link"><i class="fas fa-chart-line"></i> Trends</a>
+            <a href="/parking/search/" class="nav-link"><i class="fas fa-magnifying-glass"></i> <span>Find Parking</span></a>
+            <a href="/parking/bookings/" class="nav-link"><i class="fas fa-calendar-check"></i> <span>My Bookings</span></a>
+            <a href="/analytics/trends/" class="nav-link"><i class="fas fa-chart-line"></i> <span>Trends</span></a>
             {% if request.user.role == 'admin' %}
-            <a href="/parking/manage/" class="nav-link"><i class="fas fa-screwdriver-wrench"></i> Manage</a>
+            <a href="/parking/manage/" class="nav-link"><i class="fas fa-screwdriver-wrench"></i> <span>Manage</span></a>
             {% endif %}
-            <a href="/auth/logout/" class="nav-btn"><i class="fas fa-right-from-bracket"></i> Logout</a>
+            <a href="/auth/logout/" class="nav-btn"><i class="fas fa-right-from-bracket"></i> <span>Logout</span></a>
         </div>
     </div>
 </nav>
